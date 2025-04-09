@@ -1,6 +1,6 @@
 async function leaveFeedback(type) {
     try {
-        const response = await fetch('https://5c6b-92-253-212-22.ngrok-free.app/api/feedback', {
+        const response = await fetch('https://lesson-feedback.onrender.com/api/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
