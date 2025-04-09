@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Ваш відгук</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>  
+    <div class="feedback-container">
+        <div class="feedback-title">Як вам урок?</div>
+        <div class="feedback-options">
+            <div class="feedback-option good" onclick="leaveFeedback('good')">
+                <div class="emoji">😊</div>
+                <div class="option-text">Добрий</div>
+            </div>
+            <div class="feedback-option bad" onclick="leaveFeedback('bad')">
+                <div class="emoji">😞</div>
+                <div class="option-text">Поганий</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./server.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

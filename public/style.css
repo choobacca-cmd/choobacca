@@ -1,0 +1,94 @@
+.feedback-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    background: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feedback-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #3a3a3a;
+    font-weight: 650;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 4px;
+    background: linear-gradient(90deg, #4CAF50 0%, #2196F3 100%);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+}
+
+.feedback-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feedback-option {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 25px 20px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(5px);
+}
+
+.feedback-option:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+}
+
+.feedback-option.good:hover {
+    background: linear-gradient(135deg, rgba(248, 255, 248, 0.9) 0%, rgba(240, 255, 240, 0.9) 100%);
+    border-color: rgba(100, 221, 100, 0.15);
+}
+
+.feedback-option.bad:hover {
+    background: linear-gradient(135deg, rgba(255, 248, 248, 0.9) 0%, rgba(255, 240, 240, 0.9) 100%);
+    border-color: rgba(221, 100, 100, 0.15);
+}
+
+.emoji {
+    font-size: 60px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.feedback-option:hover .emoji {
+    transform: scale(1.1);
+}
+
+.option-text {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4a4a4a;
+    transition: color 0.3s ease;
+}
+
+.feedback-option:hover .option-text {
+    color: #333;
+}
