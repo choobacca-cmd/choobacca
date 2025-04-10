@@ -1,29 +1,44 @@
 async function leaveFeedback(type) {
     try {
-      const response = await fetch('/api/feedback', {
+        const response = await fetch('https://lesson-feedback.onrender.com/api/feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ type }),
+        });
+
+        const data = await response.json();
+
+        if (type === 'good') {
+            alert(data.success ? 'Дякуємо за позитивний відгук!' : 'Помилка збереження');
+        } else {
+            alert(data.success ? 'Дякуємо за відгук! Ми станемо краще!' : 'Помилка збереження');
+        }
+    } catch (error) {
+        console.error('Помилка:', error);
+        alert('Сталася помилка при відправці відгуку');
+    }
+}
+
+function saveFeedbackToFile(feedbackType, fileName) {
+    fetch('/save-feedback', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type })
-      });
-      const result = await response.json();
-      alert(result.success ? 'Дякуємо за відгук!' : 'Помилка');
-    } catch (error) {
-      console.error('Помилка:', error);
-    }
-  }
-  
-  async function loadFeedback() {
-    try {
-      const response = await fetch('/api/feedback');
-      const feedbacks = await response.json();
-      const list = document.getElementById('feedback-list');
-      list.innerHTML = feedbacks.map(f => `
-        <div class="feedback-item">
-          <span>${f.type === 'good' ? '😊' : '😞'}</span>
-          <span>${new Date(f.date).toLocaleString()}</span>
-        </div>
-      `).join('');
-    } catch (error) {
-      console.error('Помилка:', error);
-    }
-  }
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: feedbackType,
+            file: fileName,
+            timestamp: new Date().toISOString()
+        }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            console.error('Помилка при збереженні відгуку');
+        }
+    })
+    .catch(error => {
+        console.error('Помилка:', error);
+    });
+}
