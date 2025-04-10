@@ -92,3 +92,12 @@
 .feedback-option:hover .option-text {
     color: #333;
 }
+
+#feedback-list {
+    margin-top: 20px;
+    text-align: left;
+  }
+  .feedback-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }

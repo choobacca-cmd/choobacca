@@ -1,67 +1,44 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const cors = require('cors');
-
 const app = express();
-const PORT = 3000;
 
-app.use(bodyParser.json());
-app.use(cors()); 
+const mongoURI = 'mongodb+srv://choobacca:<qazrgplm12A>@choobacca.swzrar7.mongodb.net/?retryWrites=true&w=majority&appName=choobacca';
+mongoose.connect(mongoURI)
+  .then(() => console.log('Підключено до MongoDB'))
+  .catch(err => console.error('Помилка підключення:', err));
 
-app.use(express.static(path.join(__dirname, 'public')));
+const feedbackSchema = new mongoose.Schema({
+  type: String,
+  date: { type: Date, default: Date.now }
+});
+const Feedback = mongoose.model('Feedback', feedbackSchema);
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.use(cors());
+app.use(express.json());
+
+app.post('/api/feedback', async (req, res) => {
+  try {
+    const feedback = new Feedback({ type: req.body.type });
+    await feedback.save();
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Помилка сервера' });
+  }
 });
 
-const ensureDirectoryExists = (dir) => {
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir, { recursive: true });
-    }
-};
-
-const FEEDBACK_DIR = path.join(__dirname, 'feedbacks');
-ensureDirectoryExists(FEEDBACK_DIR);
-
-app.post('/api/feedback', (req, res) => {
-    const { type } = req.body;
-    
-    if (!type) {
-        return res.status(400).json({ error: 'Тип відгуку обов\'язковий' });
-    }
-
-    const fileName = `${type}_feedback.txt`;
-    const filePath = path.join(FEEDBACK_DIR, fileName);
-    const timestamp = new Date().toISOString();
-    const logEntry = `[${timestamp}] Відгук типу: ${type}\n`;
-
-    fs.appendFile(filePath, logEntry, (err) => {
-        if (err) {
-            console.error('Помилка запису:', err);
-            return res.status(500).json({ error: 'Помилка сервера' });
-        }
-        res.json({ success: true, message: 'Відгук збережено' });
-    });
+app.get('/api/feedback', async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find().sort({ date: -1 });
+    res.json(feedbacks);
+  } catch (error) {
+    res.status(500).json({ error: 'Помилка сервера' });
+  }
 });
 
-app.get('/api/feedback/stats', (req, res) => {
-    fs.readdir(FEEDBACK_DIR, (err, files) => {
-        if (err) {
-            return res.status(500).json({ error: 'Помилка читання' });
-        }
+app.use(express.static('public'));
 
-        const stats = {};
-        files.forEach(file => {
-            const type = file.split('_')[0];
-            stats[type] = (stats[type] || 0) + 1;
-        });
-
-        res.json(stats);
-    });
-});
-
-app.listen(3000, "0.0.0.0", () => {
-    console.log("Сервер запущено на http://0.0.0.0:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Сервер працює на порті ${PORT}`);
 });
