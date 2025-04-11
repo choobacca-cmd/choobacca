@@ -1,50 +1,57 @@
 let currentStep = 1;
-        let selectedEmoji = '';
-        let selectedEmojiText = '';
+let selectedEmoji = '';
+let selectedEmojiText = '';
         
-        document.addEventListener('DOMContentLoaded', loadFeedbacks);
+document.addEventListener('DOMContentLoaded', loadFeedbacks);
         
-        function nextStep() {
-            if (currentStep === 1) {
-                const name = document.getElementById('name').value.trim();
-                if (!name) {
-                    alert("Будь ласка, введіть ваше ім'я та прізвище");
-                    return;
-                }
-                document.getElementById('name-section').style.display = 'none';
-                document.getElementById('emoji-section').style.display = 'block';
-                document.getElementById('next-btn').textContent = 'Далі';
-                currentStep = 2;
-            } 
-            else if (currentStep === 2) {
-                if (!selectedEmoji) {
-                    alert("Будь ласка, оберіть смайлик");
-                    return;
-                }
-                document.getElementById('emoji-section').style.display = 'none';
-                document.getElementById('comment-section').style.display = 'block';
-                document.getElementById('next-btn').textContent = 'Надіслати відгук';
-                currentStep = 3;
-            } 
-            else if (currentStep === 3) {
-                const comment = document.getElementById('comment').value.trim();
-                const name = document.getElementById('name').value.trim();
-                
-                if (!comment) {
-                    alert("Будь ласка, введіть коментар");
-                    return;
-                }
-                
-                sendFeedback({
-                    name: name,
-                    emoji: selectedEmoji,
-                    emojiText: selectedEmojiText,
-                    comment: comment
-                });
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('emoji-section').style.display = 'none';
+    document.getElementById('comment-section').style.display = 'none';
+    document.getElementById('feedback-result').style.display = 'none';
+    loadFeedbacks();
+});
+
+function nextStep() {
+    if (currentStep === 1) {
+        const name = document.getElementById('name').value.trim();
+        if (!name) {
+            alert("Будь ласка, введіть ваше ім'я та прізвище");
+            return;
+        }
+        document.getElementById('name-section').style.display = 'none';
+        document.getElementById('emoji-section').style.display = 'block';
+        document.getElementById('next-btn').textContent = 'Далі';
+        currentStep = 2;
+    } 
+    else if (currentStep === 2) {
+        if (!selectedEmoji) {
+            alert("Будь ласка, оберіть смайлик");
+            return;
+        }
+        document.getElementById('emoji-section').style.display = 'none';
+        document.getElementById('comment-section').style.display = 'block';
+        document.getElementById('next-btn').textContent = 'Надіслати відгук';
+        currentStep = 3;
+    } 
+    else if (currentStep === 3) {
+        const comment = document.getElementById('comment').value.trim();
+        const name = document.getElementById('name').value.trim();
+        
+        if (!comment) {
+            alert("Будь ласка, введіть коментар");
+            return;
         }
         
-        function selectEmoji(emoji, text) {
+        sendFeedback({
+            name: name,
+            emoji: selectedEmoji,
+            emojiText: selectedEmojiText,
+            comment: comment
+        });
+    }
+}
+        
+function selectEmoji(emoji, text) {
             selectedEmoji = emoji;
             selectedEmojiText = text;
             
@@ -54,7 +61,7 @@ let currentStep = 1;
             event.target.style.transform = 'scale(1.2)';
         }
         
-        function sendFeedback(feedback) {
+function sendFeedback(feedback) {
             fetch('/api/feedback', {
                 method: 'POST',
                 headers: {
@@ -75,7 +82,7 @@ let currentStep = 1;
             });
         }
         
-        function showFeedbackResult() {
+function showFeedbackResult() {
             document.getElementById('comment-section').style.display = 'none';
             document.getElementById('next-btn').style.display = 'none';
             document.getElementById('feedback-result').style.display = 'block';
@@ -87,7 +94,7 @@ let currentStep = 1;
             }, 2000);
         }
         
-        function resetForm() {
+function resetForm() {
             document.getElementById('name').value = '';
             document.getElementById('comment').value = '';
             document.getElementById('name-section').style.display = 'block';
@@ -106,7 +113,7 @@ let currentStep = 1;
             });
         }
         
-        function loadFeedbacks() {
+function loadFeedbacks() {
             fetch('/api/feedbacks')
                 .then(response => response.json())
                 .then(feedbacks => {

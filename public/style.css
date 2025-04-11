@@ -149,3 +149,7 @@ button:hover {
     font-style: italic;
     color: #5d3a1a;
 }
+
+.comment-container {
+    display: none; 
+}
