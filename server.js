@@ -43,3 +43,29 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Сервер працює на порті ${PORT}`);
 });
+
+app.get('/api/feedbacks', (req, res) => {
+  if (fs.existsSync(FEEDBACK_FILE)) {
+      const data = fs.readFileSync(FEEDBACK_FILE, 'utf-8');
+      const feedbacks = data.split('\n')
+          .filter(Boolean)
+          .map(JSON.parse)
+          .reverse() 
+          .slice(0, 10); 
+      res.json(feedbacks);
+  } else {
+      res.json([]);
+  }
+});
+
+app.post('/api/feedback', (req, res) => {
+  const feedback = {
+      name: req.body.name,
+      emoji: req.body.emoji,
+      comment: req.body.comment,
+      date: new Date().toLocaleString('uk-UA') 
+  };
+
+  fs.appendFileSync(FEEDBACK_FILE, JSON.stringify(feedback) + '\n');
+  res.json({ success: true });
+});
