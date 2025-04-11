@@ -154,14 +154,3 @@ button:hover {
 .comment-container {
     display: none;
 }
-
-.fade-in {
-    animation: fadeIn 0.7s ease forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}

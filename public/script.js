@@ -28,8 +28,7 @@ function nextStep() {
             alert("Будь ласка, оберіть смайлик");
             return;
         }
-        document.getElementById('emoji-section').style.display = 'block';
-        document.getElementById('emoji-section').classList.add('fade-in');
+        document.getElementById('emoji-section').style.display = 'none';
         document.getElementById('comment-section').style.display = 'block';
         document.getElementById('next-btn').textContent = 'Надіслати відгук';
         currentStep = 3;
@@ -115,7 +114,6 @@ function resetForm() {
 }
 
 function loadFeedbacks() {
-    document.querySelector('.feedbacks-container h3').innerHTML = `Останні відгуки (<span id="feedback-count"></span>):`;
     fetch('/api/feedbacks')
         .then(response => response.json())
         .then(feedbacks => {
@@ -147,18 +145,4 @@ function loadFeedbacks() {
         .catch(error => {
             console.error('Помилка завантаження відгуків:', error);
         });
-    document.getElementById('feedback-count').textContent = feedbacks.length;
 }
-
-const quotes = [
-    "Історія — вчителька життя. — Цицерон",
-    "Той, хто не знає свого минулого, не вартий майбутнього. — М. Рильський",
-    "Історія — це не лише минуле, це дзеркало сьогодення. — Невідомий автор"
-];
-
-document.addEventListener('DOMContentLoaded', () => {
-    const quoteBox = document.getElementById('quote-box');
-    quoteBox.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-});
-
-document.getElementById('name').focus();
