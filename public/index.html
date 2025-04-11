@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
@@ -7,15 +8,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="history-logo.png" type="image/png">
 </head>
-<body>  
+
+<body>
     <div class="container">
         <h1>Відгук про урок історії</h1>
-        
+
         <div class="form-group" id="name-section">
             <label for="name">Ваше ім'я та прізвище:</label>
             <input type="text" id="name" placeholder="Наприклад, Іван Петренко">
         </div>
-        
+
         <div class="emoji-container" id="emoji-section">
             <p>Оберіть ваш настрій після уроку:</p>
             <div class="emoji-option" onclick="selectEmoji('😊', 'Добре')">
@@ -31,29 +33,28 @@
                 <span class="emoji-label">Погано</span>
             </div>
         </div>
-        
+
         <div class="form-group comment-container" id="comment-section">
             <label for="comment">Ваш коментар до уроку:</label>
             <textarea id="comment" placeholder="Що вам сподобалось або не сподобалось?"></textarea>
         </div>
-        
+
         <button id="next-btn" onclick="nextStep()">Далі</button>
-        
+
         <div class="feedback-result" id="feedback-result">
             Відгук успішно відправлено!
         </div>
-        
+
         <div class="feedbacks-container">
             <h3>Останні відгуки:</h3>
             <div id="feedbacks-list"></div>
         </div>
-        
-        <div class="historical-decoration">
-            "Історія - світло істини, свідок часу..."
-        </div>
+
+        <div id="quote-box" class="historical-decoration"></div>
     </div>
 
     <script src="./server.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

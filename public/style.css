@@ -48,7 +48,8 @@ label {
     color: #5d3a1a;
 }
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #d4a76a;
@@ -151,5 +152,16 @@ button:hover {
 }
 
 .comment-container {
-    display: none; 
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.7s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
