@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відгук про урок історії</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="history-logo.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <h1>Відгук про урок історії</h1>
+        
+        <div class="form-group" id="name-section">
+            <label for="name">Ваше ім'я та прізвище:</label>
+            <input type="text" id="name" placeholder="Наприклад, Іван Петренко">
+        </div>
+        
+        <div class="emoji-container" id="emoji-section">
+            <p>Оберіть ваш настрій після уроку:</p>
+            <div class="emoji-option" onclick="selectEmoji('😊', 'Добре')">
+                😊 <span class="emoji-label">Добре</span>
+            </div>
+            <div class="emoji-option" onclick="selectEmoji('😐', 'Нейтрально')">
+                😐 <span class="emoji-label">Нейтрально</span>
+            </div>
+            <div class="emoji-option" onclick="selectEmoji('😞', 'Погано')">
+                😞 <span class="emoji-label">Погано</span>
+            </div>
+            
+            <div id="positive-textarea" class="dynamic-textarea form-group">
+                <label for="positive-comment">На уроці я дізнався, навчився:</label>
+                <textarea id="positive-comment" placeholder="Що нового ви дізналися?"></textarea>
+            </div>
+            
+            <div id="neutral-textarea" class="dynamic-textarea form-group">
+                <label for="neutral-comment">Ваші враження:</label>
+                <textarea id="neutral-comment" placeholder="Опишіть ваші враження від уроку"></textarea>
+            </div>
+            
+            <div id="negative-textarea" class="dynamic-textarea form-group">
+                <label for="negative-comment">Мені було незрозуміло:</label>
+                <textarea id="negative-comment" placeholder="Що саме вам було незрозуміло?"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-group comment-container" id="comment-section">
+            <label for="comment">Ваш коментар до уроку:</label>
+            <textarea id="comment" placeholder="Що вам сподобалось або не сподобалось?"></textarea>
+        </div>
+        
+        <button id="next-btn" onclick="nextStep()">Далі</button>
+        
+        <div class="feedback-result" id="feedback-result">
+            Відгук успішно відправлено!
+        </div>
+        
+        <div class="feedbacks-container">
+            <h3>Останні відгуки:</h3>
+            <div id="feedbacks-list"></div>
+        </div>
+        
+        <div id="history-quote" class="historical-decoration">
+            "Історія - світло істини, свідок часу..."
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

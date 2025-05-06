@@ -1,0 +1,9 @@
+node_modules/
+
+feedback_data/
+*.log
+
+.DS_Store
+Thumbs.db
+
+.vscode/
